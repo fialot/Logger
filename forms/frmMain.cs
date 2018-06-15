@@ -618,6 +618,10 @@ namespace Logger
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            txtLogPath.Text = Properties.Settings.Default.logPath;
+            txtPort.Text = Properties.Settings.Default.port;
+            chbReceivedTime.Checked = Properties.Settings.Default.useReceiveTime;
+
             cbDevice.Items.Clear();
             cbDevice.Items.Add("all");
             cbDevice.SelectedIndex = 0;
@@ -708,7 +712,15 @@ namespace Logger
             ArrayList classList = new ArrayList();
             olvLog.AddObjects(classList);
         }
-        
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.logPath = txtLogPath.Text;
+            Properties.Settings.Default.port = txtPort.Text;
+            Properties.Settings.Default.useReceiveTime = chbReceivedTime.Checked;
+
+            Properties.Settings.Default.Save();
+        }
     }
 }
 

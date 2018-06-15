@@ -551,6 +551,7 @@
             this.MinimumSize = new System.Drawing.Size(598, 320);
             this.Name = "frmMain";
             this.Text = "Logger";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.Resize += new System.EventHandler(this.frmMain_Resize);
             this.tabControl1.ResumeLayout(false);
