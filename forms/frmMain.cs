@@ -631,6 +631,15 @@ namespace Logger
             chbReceivedTime_CheckedChanged(sender, e);
         }
 
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.logPath = txtLogPath.Text;
+            Properties.Settings.Default.port = txtPort.Text;
+            Properties.Settings.Default.useReceiveTime = chbReceivedTime.Checked;
+
+            Properties.Settings.Default.Save();
+        }
+
         private void frmMain_Resize(object sender, EventArgs e)
         {
             if (FormWindowState.Minimized == this.WindowState)
@@ -713,14 +722,7 @@ namespace Logger
             olvLog.AddObjects(classList);
         }
 
-        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Properties.Settings.Default.logPath = txtLogPath.Text;
-            Properties.Settings.Default.port = txtPort.Text;
-            Properties.Settings.Default.useReceiveTime = chbReceivedTime.Checked;
 
-            Properties.Settings.Default.Save();
-        }
     }
 }
 
