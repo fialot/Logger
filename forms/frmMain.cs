@@ -245,7 +245,7 @@ namespace Logger
 
 
 
-                if (lines[i].Length > 22)
+                if (lines[i].Length >= 21)
                 {
                     try
                     {
@@ -301,8 +301,11 @@ namespace Logger
                             if (dataPath != "") item.recDate = DateTime.Now;
                             else item.recDate = logDate;
                             item.level = lines[i].Substring(20, 1)[0];
-                            item.description = lines[i].Remove(0, 22);
-                            item.description = item.description.Trim();
+                            if (lines[i].Length > 22)
+                            {
+                                item.description = lines[i].Remove(0, 22);
+                                item.description = item.description.Trim();
+                            }
                             isFilled = true;
 
                         }
@@ -618,6 +621,9 @@ namespace Logger
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            string ver = System.Reflection.Assembly.GetEntryAssembly().GetName().Version.ToString();
+            this.Text += " - v" + ver.Substring(0, ver.Length - 2);
+
             txtLogPath.Text = Properties.Settings.Default.logPath;
             txtPort.Text = Properties.Settings.Default.port;
             chbReceivedTime.Checked = Properties.Settings.Default.useReceiveTime;
