@@ -627,7 +627,7 @@ namespace Logger
             txtLogPath.Text = Properties.Settings.Default.logPath;
             txtPort.Text = Properties.Settings.Default.port;
             chbReceivedTime.Checked = Properties.Settings.Default.useReceiveTime;
-
+            
             cbDevice.Items.Clear();
             cbDevice.Items.Add("all");
             cbDevice.SelectedIndex = 0;
@@ -635,6 +635,18 @@ namespace Logger
             //logList = new List<logData>();
             InitOLV();
             chbReceivedTime_CheckedChanged(sender, e);
+
+            if (Properties.Settings.Default.run)
+            {
+                try
+                {
+                    Connect();
+                }
+                catch (Exception err)
+                {
+                    Dialogs.ShowErr(err.Message, "Error");
+                }
+            }
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -642,6 +654,12 @@ namespace Logger
             Properties.Settings.Default.logPath = txtLogPath.Text;
             Properties.Settings.Default.port = txtPort.Text;
             Properties.Settings.Default.useReceiveTime = chbReceivedTime.Checked;
+
+
+            if (com == null || !com.IsOpen())
+                Properties.Settings.Default.run = false;
+            else
+                Properties.Settings.Default.run = true;
 
             Properties.Settings.Default.Save();
         }

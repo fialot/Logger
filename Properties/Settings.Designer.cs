@@ -58,5 +58,17 @@ namespace Logger.Properties {
                 this["useReceiveTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool run {
+            get {
+                return ((bool)(this["run"]));
+            }
+            set {
+                this["run"] = value;
+            }
+        }
     }
 }
